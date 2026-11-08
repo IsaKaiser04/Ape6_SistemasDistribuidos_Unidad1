@@ -10,10 +10,6 @@
 - Isauro Rivera
 - Ariel Tandazo
 
-**Video de explicación:** _(pegar aquí el enlace)_
-
----
-
 ## 1. Descripción
 
 Sistema de mensajería distribuida para monitorear en tiempo real una flota de vehículos de reparto. Cada vehículo envía telemetría (GPS, temperatura de la carga y nivel de combustible) por **MQTT**. Los datos se almacenan, se detectan alertas por umbral y se reenvían a **RabbitMQ**, donde microservicios en **Spring Boot** los procesan y los exponen mediante una **API REST**.
@@ -142,15 +138,11 @@ Se usó el usuario `flota` en lugar de `guest` o `admin` para evitar conflictos 
 | `ACCESS_REFUSED` (403) en RabbitMQ | Puerto 5672 ocupado por otra instancia o usuario `guest` rechazado | Detener la otra instancia y definir el usuario `flota` en el compose |
 | Puertos ocupados sin contenedores | Procesos `docker-proxy` huérfanos | `sudo pkill docker-proxy` y volver a levantar |
 
-## 9. Preguntas de control
 
-- Parte 1: [`parte1-iot/respuestas_control.md`](parte1-iot/respuestas_control.md)
-- Parte 2: [`parte2-springboot/respuestas_control_parte2.md`](parte2-springboot/respuestas_control_parte2.md)
-
-## 10. Evidencias
+## 9. Evidencias
 
 Las capturas están en la carpeta [`evidencias/`](evidencias/): contenedores activos, publicación en `flota/#`, SQLite, alertas, colas de RabbitMQ y respuestas de la API REST.
 
-## 11. Bibliografía
+## 10. Bibliografía
 
 - J. Guamán, _Guía de Actividades Práctico-Experimentales Nro. 005 y 006_, Universidad Nacional de Loja, 2026.
