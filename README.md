@@ -138,11 +138,6 @@ Se usó el usuario `flota` en lugar de `guest` o `admin` para evitar conflictos 
 | `ACCESS_REFUSED` (403) en RabbitMQ | Puerto 5672 ocupado por otra instancia o usuario `guest` rechazado | Detener la otra instancia y definir el usuario `flota` en el compose |
 | Puertos ocupados sin contenedores | Procesos `docker-proxy` huérfanos | `sudo pkill docker-proxy` y volver a levantar |
 
-
-## 9. Evidencias
-
-Las capturas están en la carpeta [`evidencias/`](evidencias/): contenedores activos, publicación en `flota/#`, SQLite, alertas, colas de RabbitMQ y respuestas de la API REST.
-
 ## 10. Bibliografía
 
 - J. Guamán, _Guía de Actividades Práctico-Experimentales Nro. 005 y 006_, Universidad Nacional de Loja, 2026.
