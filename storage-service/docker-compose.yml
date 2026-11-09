@@ -1,0 +1,18 @@
+# Laptop del STORAGE: storage-service (+ base de datos H2 en ./data)
+# RABBITMQ_HOST = IP de la laptop del PROCESSOR. Ver .env.example
+services:
+  storage:
+    build: .
+    container_name: storage_service
+    environment:
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-host.docker.internal}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+      RABBITMQ_USER: ${RABBITMQ_USER:-flota}
+      RABBITMQ_PASS: ${RABBITMQ_PASS:-flota123}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8083:8083"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

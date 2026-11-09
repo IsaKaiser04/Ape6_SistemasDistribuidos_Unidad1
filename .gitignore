@@ -1,0 +1,6 @@
+target/
+data/
+.env
+.idea/
+__pycache__/
+mosquitto/data/

@@ -1,0 +1,41 @@
+# Laptop del PRODUCER: Mosquitto + simulador de sensores + puente MQTT -> RabbitMQ
+# RABBITMQ_HOST = IP de la laptop del PROCESSOR (donde corre RabbitMQ). Ver .env.example
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: mosquitto_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+    restart: unless-stopped
+
+  bridge:
+    build: .
+    container_name: producer_bridge
+    command: ["python", "-u", "mqtt_rabbitmq_bridge.py"]
+    environment:
+      MQTT_BROKER: mosquitto
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-host.docker.internal}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+      RABBITMQ_USER: ${RABBITMQ_USER:-flota}
+      RABBITMQ_PASS: ${RABBITMQ_PASS:-flota123}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  simulador:
+    build: .
+    container_name: producer_simulador
+    command: ["python", "-u", "simulador_sensores.py"]
+    environment:
+      MQTT_BROKER: mosquitto
+      SIM_RONDAS: ${SIM_RONDAS:-0}
+      SIM_PAUSA: ${SIM_PAUSA:-5}
+    depends_on:
+      - mosquitto
+    restart: unless-stopped

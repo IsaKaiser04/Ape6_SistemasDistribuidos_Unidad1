@@ -1,0 +1,14 @@
+# Laptop del GATEWAY: punto de entrada (puerto 8080)
+# STORAGE_URL / PROCESSOR_URL = IPs de las otras laptops. Ver .env.example
+services:
+  gateway:
+    build: .
+    container_name: gateway_service
+    environment:
+      STORAGE_URL: ${STORAGE_URL:-http://host.docker.internal:8083}
+      PROCESSOR_URL: ${PROCESSOR_URL:-http://host.docker.internal:8082}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
